@@ -1,4 +1,4 @@
-# Ruby on Rails from Scratch
+# Ruby on Rails from Scratch 
 
 Project based on the Learn Ruby On Rails From Scratch from Udemy.
 
@@ -9,6 +9,7 @@ The Tutorial describing step by step on how this app was built can be found [her
 ## Version
 
 Ruby version -> ruby 2.4.1p111
+
 Rails version -> 5.1.4
 
 ## System dependencies

@@ -1,7 +1,7 @@
-#RUBY ON RAILS Tutorial #
+# RUBY ON RAILS Tutorial #
 
 ---
-#SECTION 1 - Environment Set up and Deployment
+# SECTION 1 - Environment Set up and Deployment
 ---
 
 1) Create an app:
@@ -75,4 +75,58 @@ In Gemfile, add line: gem 'pg'
 ```
 > gem install heroku
 > bundle install
+```
+
+---
+# SECTION 3 - Controller Views and Routes
+---
+
+1) Generate a nw posts controller:
+
+```
+> rails generate controller posts
+
+      create  app/controllers/posts_controller.rb
+      invoke  erb
+      create    app/views/posts
+      invoke  test_unit
+      create    test/controllers/posts_controller_test.rb
+      invoke  helper
+      create    app/helpers/posts_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/posts.coffee
+      invoke    scss
+      create      app/assets/stylesheets/posts.scss
+```
+
+2) Define an action in the Posts Controller. First of them is 'index' (aka root). There are seven actions in RoR controllers:
+
+```
+#index
+#new
+#create
+#show
+#edit
+#update
+#destroy
+```
+
+3) Create a index.html.erb file inside posts folder in view folder
+
+```html
+<h1> Blog Posts </h1>
+<h3>Sample Post One </h3>
+<p> This is some text for our awesome Ruby blog</p>
+<hr />
+<h3>Sample Post Two </h3>
+<p> This is another text for our awesome Ruby blog</p>
+```
+
+4) Updates routes.rb under root line with the new posts resource (path <hostname>/posts):
+
+```
+root 'home#index'
+    resources :posts
 ```
