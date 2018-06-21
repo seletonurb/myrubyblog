@@ -1,24 +1,32 @@
-# README
+# Ruby on Rails from Scratch
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Project based on the Learn Ruby On Rails From Scratch from Udemy.
 
-Things you may want to cover:
+What follows is a description of the steps that are necessary to get the application up and running.
 
-* Ruby version
+The Tutorial describing step by step on how this app was built can be found [here](./README_TUTORIAL.md)
 
-* System dependencies
+## Version
 
-* Configuration
+Ruby version -> ruby 2.4.1p111
+Rails version -> 5.1.4
 
-* Database creation
+## System dependencies
 
-* Database initialization
+Postgres
 
-* How to run the test suite
+## Configuration
 
-* Services (job queues, cache servers, search engines, etc.)
+## Database creation
 
-* Deployment instructions
+## Database initialization
 
-* ...
+## How to run the test suite
+
+## Services (job queues, cache servers, search engines, etc.)
+
+## Deployment instructions
+
+## References
+
+1. [Learn Ruby on Rails from Scratch](https://www.udemy.com/learn-ruby-on-rails-from-scratch)
