@@ -81,6 +81,8 @@ In Gemfile, add line: gem 'pg'
 # SECTION 3 - Controller Views and Routes
 ---
 
+## Generating Controllers and Views
+
 1) Generate a nw posts controller:
 
 ```
@@ -101,16 +103,13 @@ In Gemfile, add line: gem 'pg'
       create      app/assets/stylesheets/posts.scss
 ```
 
-2) Define an action in the Posts Controller. First of them is 'index' (aka root). There are seven actions in RoR controllers:
+2) Define an action in the Posts Controller. First of them is 'index' (aka root). There are seven actions in RoR controllers that will be discussed in the *Action Controllers & Routes* section (next section). On posts_controller.rb:
 
-```
-#index
-#new
-#create
-#show
-#edit
-#update
-#destroy
+```ruby
+class PostsController < ApplicationController
+  def index
+  end
+end
 ```
 
 3) Create a index.html.erb file inside posts folder in view folder
@@ -126,7 +125,97 @@ In Gemfile, add line: gem 'pg'
 
 4) Updates routes.rb under root line with the new posts resource (path <hostname>/posts):
 
-```
+```ruby
 root 'home#index'
     resources :posts
 ```
+
+## Action Controllers & Routes
+
+Possible actions for RoR controllers:
+
+| Controller#Action | HTTP Verb	| Description |
+|:-----------------:|:---------:|:-----------:|
+|index              |GET        | display a list of resources|
+|new                |GET        | return an HTML form for creating a new resource|
+|create             |POST       | create a new resource|
+|show               |GET        | display a specific resource|
+|edit               |GET        | return an HTML form for editing a resource|
+|update             |PATCH/PUT  | update a specific resource|
+|destroy            |DELETE     | delete a specific resource|
+
+
+1) Command to show all the possible routes for my controllers
+
+```
+>rake routes
+   Prefix Verb   URI Pattern               Controller#Action
+     root GET    /                         home#index
+    posts GET    /posts(.:format)          posts#index
+          POST   /posts(.:format)          posts#create
+ new_post GET    /posts/new(.:format)      posts#new
+edit_post GET    /posts/:id/edit(.:format) posts#edit
+     post GET    /posts/:id(.:format)      posts#show
+          PATCH  /posts/:id(.:format)      posts#update
+          PUT    /posts/:id(.:format)      posts#update
+          DELETE /posts/:id(.:format)      posts#destroy
+```
+
+2) Define methods for all posts routes. On posts_controller.rb:
+
+```ruby
+class PostsController < ApplicationController
+  def index
+  end
+  def new
+  end
+  def create
+  end
+  def edit
+  end
+  def update
+  end
+  def show
+  end
+  def destroy
+  end
+end
+```
+
+3) Create views for 'index', 'new', 'show' and 'edit' posts routes (the ones that can have views associated with it). New html files in app/views/posts:
+
+edit.html.erb
+index.html.erb
+new.html.erb
+show.html.erb
+
+4) Define a variable in the controller and make a reference to it in the view:
+
+On posts_controller.rb:
+
+```ruby
+class PostsController < ApplicationController
+  def index
+    @content_first = 'This is some text for our awesome Ruby blog'
+    @content_second = 'This is another text for our awesome Ruby blog'
+  end
+
+  ...
+
+end
+```
+
+On index.html.rb:
+
+```html
+<h1> Blog Posts </h1>
+<h3>Sample Post One </h3>
+<p><%= @content_first %></p>
+<hr />
+<h3>Sample Post Two </h3>
+<p><%= @content_second %></p>
+```
+
+# References
+
+1. [RoR routing](http://guides.rubyonrails.org/routing.html)
