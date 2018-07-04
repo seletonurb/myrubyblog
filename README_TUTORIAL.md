@@ -83,7 +83,7 @@ In Gemfile, add line: gem 'pg'
 
 ## Generating Controllers and Views
 
-1) Generate a nw posts controller:
+1) Generate a new posts controller:
 
 ```
 > rails generate controller posts
@@ -128,6 +128,11 @@ end
 ```ruby
 root 'home#index'
     resources :posts
+```
+
+5) Create Category controller (will be used later):
+```
+rails generate controller categories index edit new show
 ```
 
 ## Action Controllers & Routes
