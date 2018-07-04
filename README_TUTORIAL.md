@@ -276,6 +276,32 @@ On the left side menu, go to: Servers -> PostgresSQL -> Databases -> myrubyblog 
 
 ```
 
+5) Creating Table Associations
+
+There are six types of associations:
+
+- belongs_to
+- has_one
+- has_many
+- has_many :through
+- has_one :through
+- has_and_belongs_to_many
+
+```ruby
+class Post < ApplicationRecord
+  attr_accessible :name, :body, :author_id
+  belongs_to :category
+end
+
+class Category < ApplicationRecord
+  attr_accessible :name
+  has_many :posts
+end
+```
+
+
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
+2. [RoR Associations](http://guides.rubyonrails.org/association_basics.html)
