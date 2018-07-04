@@ -225,6 +225,8 @@ On index.html.rb:
 # SECTION 3 - Working with Models and Databases
 ---
 
+## Database Models
+
 1) Create a new database model.
 
 Let's generate a category model with fields:
@@ -302,7 +304,7 @@ class Category < ApplicationRecord
 end
 ```
 
-5) Database operations using Rails console
+## Database Models operations using Rails console
 
 Open the terminal console, browse to the project folder and then open rails console:
 
@@ -310,7 +312,7 @@ Open the terminal console, browse to the project folder and then open rails cons
 > rails console
 ```
 
-5.1 CREATION
+1) CREATION
 
 ```ruby
 category = Category.new(:name => "News") # returns an object with a nil id
@@ -340,9 +342,9 @@ post = Post.create(:title => "My First Post", :body => "This is the first post s
 post = Post.create(:title => "My Second Post", :body => "This is the second post sample test", :category_id => 2, :author_id => nil) # returns an object with an id, association with News category
 ```
 
-5.2 READ
+2) READ
 
-5.2.1 All method
+2.1) All method
 ```
 > Category.all
     Category Load (1.0ms)  SELECT  "categories".* FROM "categories" LIMIT $1  [["L
@@ -355,7 +357,7 @@ post = Post.create(:title => "My Second Post", :body => "This is the second post
   8-07-04 17:27:08", updated_at: "2018-07-04 17:27:08">]>
 ```
 
-5.2.2 Find method
+2.2) Find method
 ```
 > Post.find(1)
     Post Load (1.0ms)  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMI
@@ -365,7 +367,7 @@ post = Post.create(:title => "My Second Post", :body => "This is the second post
   at: "2018-07-04 18:01:26">
 ```
 
-5.3 UPDATE
+3) UPDATE
 ```
 > post.title= "This is another title"
 > post.save
@@ -383,7 +385,7 @@ Alternatively, a creation can be done using the create command:
   => true
 ```
 
-5.4 DELETE
+4) DELETE
 ```
 > post.destroy
   (0.0ms)  BEGIN
@@ -393,6 +395,25 @@ Alternatively, a creation can be done using the create command:
   t", category_id: 1, author_id: nil, created_at: "2018-07-04 18:01:26", updated_a
   t: "2018-07-04 18:06:45">
 ```
+
+## Database Reading
+
+Update the posts_controller.rb with an instance variable
+```ruby
+def index
+  @posts = Post.all
+end
+```
+Update the index.html.erb with a reference to the instance variable to create a posts loop
+```html
+<h1> Blog Posts </h1>
+<% @posts.each do |post| %>
+  <h3><%= post.title %></h3>
+  <p><%= post.body %></p>
+  <hr />
+<% end %>
+```
+The same is done for the show route.
 
 # References
 
