@@ -297,6 +297,98 @@ class Category < ApplicationRecord
 end
 ```
 
+5) Database operations using Rails console
+
+Open the terminal console, browse to the project folder and then open rails console:
+
+```
+> rails console
+```
+
+5.1 CREATION
+
+```ruby
+category = Category.new(:name => "News") # returns an object with a nil id
+# save in the database
+category.save
+```
+
+The save method call from the model will output the query:
+```
+> category.save
+     (1.0ms)  BEGIN
+    SQL (3.0ms)  INSERT INTO "categories" ("name", "created_at", "updated_at") VAL
+  UES ($1, $2, $3) RETURNING "id"  [["name", "News"], ["created_at", "2018-07-04 1
+  7:23:29.732988"], ["updated_at", "2018-07-04 17:23:29.732988"]]
+     (2.0ms)  COMMIT
+  => true
+```
+Alternatively, a creation can be done using the create command:
+
+```ruby
+category = Category.create(:name => "Tutorials") # returns an object with an id
+```
+
+Creating a new Post
+```ruby
+post = Post.create(:title => "My First Post", :body => "This is the first post sample test", :category_id => 1, :author_id => nil) # returns an object with an id, association with News category
+post = Post.create(:title => "My Second Post", :body => "This is the second post sample test", :category_id => 2, :author_id => nil) # returns an object with an id, association with News category
+```
+
+5.2 READ
+
+5.2.1 All method
+```
+> Category.all
+    Category Load (1.0ms)  SELECT  "categories".* FROM "categories" LIMIT $1  [["L
+  IMIT", 11]]
+  => #<ActiveRecord::Relation [#<Category id: 1, name: "News", created_at: "2018-0
+  7-04 17:23:29", updated_at: "2018-07-04 17:23:29">, #<Category id: 2, name: "Tut
+  orials", created_at: "2018-07-04 17:26:51", updated_at: "2018-07-04 17:26:51">,
+  #<Category id: 3, name: "Programming", created_at: "2018-07-04 17:27:01", update
+  d_at: "2018-07-04 17:27:01">, #<Category id: 4, name: "Design", created_at: "201
+  8-07-04 17:27:08", updated_at: "2018-07-04 17:27:08">]>
+```
+
+5.2.2 Find method
+```
+> Post.find(1)
+    Post Load (1.0ms)  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMI
+  T $2  [["id", 1], ["LIMIT", 1]]
+  => #<Post id: 1, title: "My First Post", body: "This is the first post sample te
+  st", category_id: 1, author_id: nil, created_at: "2018-07-04 18:01:26", updated_
+  at: "2018-07-04 18:01:26">
+```
+
+5.3 UPDATE
+```
+> post.title= "This is another title"
+> post.save
+```
+
+Alternatively, a creation can be done using the create command:
+
+```
+> post.update_attribute(:title, "Update title")
+  (0.0ms)  BEGIN
+  SQL (1.0ms)  UPDATE "posts" SET "title" = $1, "updated_at" = $2 WHERE "posts".
+  "id" = $3  [["title", "Update title"], ["updated_at", "2018-07-04 18:06:45.30244
+  6"], ["id", 1]]
+  (2.0ms)  COMMIT
+  => true
+```
+
+5.4 DELETE
+```
+> post.destroy
+  (0.0ms)  BEGIN
+  SQL (1.0ms)  DELETE FROM "posts" WHERE "posts"."id" = $1  [["id", 1]]
+  (2.0ms)  COMMIT
+  => #<Post id: 1, title: "Update title", body: "This is the first post sample tes
+  t", category_id: 1, author_id: nil, created_at: "2018-07-04 18:01:26", updated_a
+  t: "2018-07-04 18:06:45">
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
