@@ -252,6 +252,30 @@ To migrate the category table to the database, execute the following command:
 To check the new CATEGORY table, open pgAdmin tool (installed previously)
 On the left side menu, go to: Servers -> PostgresSQL -> Databases -> myrubyblog -> Schemas -> Publid -> Tables -> categories
 
+3) Create a new posts database model.
+
+```
+> rails g model post title:string body:text category_id:integer author_id:integer
+    invoke  active_record
+    create    db/migrate/20180704151740_create_posts.rb
+    create    app/models/post.rb
+    invoke    test_unit
+    create      test/models/post_test.rb
+    create      test/fixtures/posts.yml
+```
+
+4) Migrate generated model tables to the database
+
+```
+> rake db:migrate
+
+== 20180704151740 CreatePosts: migrating ======================================
+-- create_table(:posts)
+   -> 0.0185s
+== 20180704151740 CreatePosts: migrated (0.0190s) =============================
+
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
