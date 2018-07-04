@@ -78,7 +78,7 @@ In Gemfile, add line: gem 'pg'
 ```
 
 ---
-# SECTION 3 - Controller Views and Routes
+# SECTION 2 - Controller Views and Routes
 ---
 
 ## Generating Controllers and Views
@@ -215,6 +215,42 @@ On index.html.rb:
 <h3>Sample Post Two </h3>
 <p><%= @content_second %></p>
 ```
+
+---
+# SECTION 3 - Working with Models and Databases
+---
+
+1) Create a new database model.
+
+Let's generate a category model with fields:
+
+```
+> rails g model category name:string
+
+    invoke  active_record
+    create    db/migrate/20180704145759_create_categories.rb
+    create    app/models/category.rb
+    invoke    test_unit
+    create      test/models/category_test.rb
+    create      test/fixtures/categories.yml
+
+```
+2) Migrate generated model tables to the database
+
+To migrate the category table to the database, execute the following command:
+
+```
+> rake db:migrate
+
+== 20180704145759 CreateCategories: migrating =================================
+-- create_table(:categories)
+   -> 0.0204s
+== 20180704145759 CreateCategories: migrated (0.0214s) ========================
+
+```
+
+To check the new CATEGORY table, open pgAdmin tool (installed previously)
+On the left side menu, go to: Servers -> PostgresSQL -> Databases -> myrubyblog -> Schemas -> Publid -> Tables -> categories
 
 # References
 
