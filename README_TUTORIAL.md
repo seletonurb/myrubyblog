@@ -415,6 +415,46 @@ Update the index.html.erb with a reference to the instance variable to create a 
 ```
 The same is done for the show route.
 
+## Database Creation
+Update the posts_controller.rb create and new methods
+```ruby
+def new
+  @post = Post.new
+  @categories = Category.all
+end
+def post_params
+  params.require(:post).permit(:title, :body, :category_id, :author_id)
+end
+def create
+  @post = Post.new(post_params)
+  if @post.save
+    redirect_to posts_path, :notice => "Your post has been saved"
+  else
+    render "new"
+  end
+end
+```
+Update the new.html.erb with a form tfor the new post
+```html
+<h1>Add New Post</h1>
+<%= form_for @post do |f| %>
+	<p>
+		<%= f.label :title %><br />
+		<%= f.text_field :title %><br />
+	</p>
+	<p>
+		<%= f.label :body %><br />
+		<%= f.text_area :body %><br />
+	</p>
+	<p>
+		<%= f.select :category_id, Category.all.collect {|x| [x.name, x.id]}, {:include_blank => "Select One"} %><br />
+	</p>
+	<p>
+		<%= f.submit "Add Post" %>
+	</p>
+<% end %>
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)

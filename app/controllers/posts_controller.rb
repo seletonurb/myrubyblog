@@ -3,13 +3,19 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
   def new
-
-  end
-  def create
-
+    @post = Post.new
+    @categories = Category.all
   end
   def post_params
     params.require(:post).permit(:title, :body, :category_id, :author_id)
+  end
+  def create
+    @post = Post.new(post_params)
+    if @post.save
+      redirect_to posts_path, :notice => "Your post has been saved"
+    else
+      render "new"
+    end
   end
   def edit
 
