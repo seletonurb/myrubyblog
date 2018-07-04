@@ -289,17 +289,13 @@ There are six types of associations:
 
 ```ruby
 class Post < ApplicationRecord
-  attr_accessible :name, :body, :author_id
   belongs_to :category
 end
 
 class Category < ApplicationRecord
-  attr_accessible :name
   has_many :posts
 end
 ```
-
-
 
 # References
 

@@ -9,6 +9,9 @@ class PostsController < ApplicationController
   def create
 
   end
+  def post_params
+    params.require(:post).permit(:title, :body, :category_id, :author_id)
+  end
   def edit
 
   end
