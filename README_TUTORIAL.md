@@ -416,6 +416,7 @@ Update the index.html.erb with a reference to the instance variable to create a 
 The same is done for the show route.
 
 ## Database Creation
+
 Update the posts_controller.rb create and new methods
 ```ruby
 def new
@@ -434,7 +435,8 @@ def create
   end
 end
 ```
-Update the new.html.erb with a form tfor the new post
+
+Update the new.html.erb with a form for the new post
 ```html
 <h1>Add New Post</h1>
 <%= form_for @post do |f| %>
@@ -453,6 +455,46 @@ Update the new.html.erb with a form tfor the new post
 		<%= f.submit "Add Post" %>
 	</p>
 <% end %>
+```
+
+## Database Update
+
+Update the posts_controller.rb edit and update methods
+```ruby
+def edit
+  @post = Post.find(params[:id])
+end
+def update
+  @post = Post.find(params[:id])
+
+  if @post.update_attributes(post_params)
+    redirect_to post_path, :notice => "Your post has been updated"
+  else
+    render "edit"
+  end
+end
+```
+
+Update the edit.html.erb with a form for to update the post
+```html
+<h1> Edit Post </h1>
+<%= form_for @post do |f| %>
+	<p>
+		<%= f.label :title %><br />
+		<%= f.text_field :title %><br />
+	</p>
+	<p>
+		<%= f.label :body %><br />
+		<%= f.text_area :body %><br />
+	</p>
+	<p>
+		<%= f.select :category_id, Category.all.collect {|x| [x.name, x.id]}, {:include_blank => "Select One"} %><br />
+	</p>
+	<p>
+		<%= f.submit "Update Post" %>
+	</p>
+<% end %>
+<%= link_to "Go Back", post_path %>
 ```
 
 # References
