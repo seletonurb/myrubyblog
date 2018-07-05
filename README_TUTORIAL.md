@@ -497,6 +497,25 @@ Update the edit.html.erb with a form for to update the post
 <%= link_to "Go Back", post_path %>
 ```
 
+## Database Delete
+
+Update the posts_controller.rb destroy method
+```ruby
+def destroy
+  @post = Post.find(params[:id])
+  @post.destroy
+  redirect_to posts_path, :notice => "Your post has been deleted"
+end
+```
+
+Update the show.html.erb with a link to delete the post
+```html
+<h1><%= @post.title %></h1>
+<small><%= @post.created_at.strftime("%b %d. %Y") %></small>
+<p><%= @post.body %></p>
+<%= link_to "Edit Post", edit_post_path %> | <%= link_to "Delete", @post, :confirm => "Are you sure you want to delete?", :method => :delete %>
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
