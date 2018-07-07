@@ -516,6 +516,54 @@ Update the show.html.erb with a link to delete the post
 <%= link_to "Edit Post", edit_post_path %> | <%= link_to "Delete", @post, :confirm => "Are you sure you want to delete?", :method => :delete %>
 ```
 
+---
+# SECTION 4 - Scaffolding and Active Admin
+---
+
+## Scaffolding in Rails
+
+Scaffolding in rails will basically create everything related to a model: the controller, the model, the view, the database migration, the unit tests, the styles, and helpers.
+
+```
+rails g scaffold category name:string
+
+    invoke  active_record
+    create    db/migrate/20180707215319_create_categories.rb
+    create    app/models/category.rb
+    invoke    test_unit
+    create      test/models/category_test.rb
+    create      test/fixtures/categories.yml
+    invoke  resource_route
+     route    resources :categories
+    invoke  scaffold_controller
+    create    app/controllers/categories_controller.rb
+    invoke    erb
+    create      app/views/categories
+    create      app/views/categories/index.html.erb
+    create      app/views/categories/edit.html.erb
+    create      app/views/categories/show.html.erb
+    create      app/views/categories/new.html.erb
+    create      app/views/categories/_form.html.erb
+    invoke    test_unit
+    create      test/controllers/categories_controller_test.rb
+    invoke    helper
+    create      app/helpers/categories_helper.rb
+    invoke      test_unit
+    invoke    jbuilder
+    create      app/views/categories/index.json.jbuilder
+    create      app/views/categories/show.json.jbuilder
+    create      app/views/categories/_category.json.jbuilder
+    invoke  test_unit
+    create    test/system/categories_test.rb
+    invoke  assets
+    invoke    coffee
+    create      app/assets/javascripts/categories.coffee
+    invoke    scss
+    create      app/assets/stylesheets/categories.scss
+    invoke  scss
+    create    app/assets/stylesheets/scaffolds.scss
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
