@@ -764,9 +764,42 @@ To the new routes:
 2. Add the html content in the partials file (starts with underscore) : create `_sidebar.html.erb` file in `app/views/partials`
 3. Render partials content inside html file by calling render function (in `application.html.erb` file):
 ```ruby
-  <%= render "partials/sidebar" %>
+  <%= render 'partials/sidebar' % >
 ```
 
+## Meta search
+
+Meta search _adds full text search against a database model_
+On Rails 4.1+, there is no need to include it in the Gemfile, since it is part of the active admin gem (installed above).
+This can be done in 3 steps:
+
+1. Add search method in Posts Controller ( `posts_controller.rb`)
+```ruby
+def index
+  @q = Post.search(params[:q])
+  @posts = @q.result(distinct: true)
+end
+```
+
+2. Call search method defined in Application Controller ( `_sidebar.html.erb`)
+```html
+<div id="search">
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :title_or_body_contains %>
+    <%= f.submit "Search"%>
+  <% end %>
+</div>
+```
+
+3. Add search method in Application Controller so that the partial can access it (`application_controller.rb`)
+```ruby
+before_action :site_search
+
+def site_search
+  @q = Post.search(params[:q])
+  @search_result = @q.result(distinct: true)
+end
+```
 
 # References
 
