@@ -132,7 +132,7 @@ root 'home#index'
 
 5) Create Category controller (will be used later):
 ```
-rails generate controller categories index edit new show
+> rails generate controller categories index edit new show
 ```
 
 ## Action Controllers & Routes
@@ -153,7 +153,7 @@ Possible actions for RoR controllers:
 1) Command to show all the possible routes for my controllers
 
 ```
->rake routes
+> rake routes
    Prefix Verb   URI Pattern               Controller#Action
      root GET    /                         home#index
     posts GET    /posts(.:format)          posts#index
@@ -525,7 +525,7 @@ Update the show.html.erb with a link to delete the post
 Scaffolding in rails will basically create everything related to a model: the controller, the model, the view, the database migration, the unit tests, the styles and helpers.
 
 ```
-rails g scaffold category name:string
+> rails g scaffold category name:string
 
     invoke  active_record
     create    db/migrate/20180707215319_create_categories.rb
@@ -571,8 +571,8 @@ rails g scaffold category name:string
 Add  activeadmin and devise gem to Gemfile and save: `gem 'activeadmin' gem 'devise'`
 Run the following commands:
 ```
-bundle install
-rails generate active_admin:install
+> bundle install
+> rails generate active_admin:install
 
       invoke  devise
       generate    devise:install
@@ -626,7 +626,7 @@ rails generate active_admin:install
 
 The previous commands will generate some migration files. So next run db migrate to create the new admin tables:
 ```
-rake db:migrate
+> rake db:migrate
 
 == 20180709131843 DeviseCreateAdminUsers: migrating ===========================
 -- create_table(:admin_users)
@@ -647,23 +647,19 @@ rake db:migrate
 
 Then run db seed to add initial data after a database is created:
 ```
-rake db:seed
+> rake db:seed
 ```
 
 ### Run server and access Active Admin area
 
-Start server and go to `http://localhost:3000/admin/login`. Enter the default user and password:
-```
-admin@example.com
-password
-```
+Start server and go to `http://localhost:3000/admin/login`. Enter the default user `admin@example.com` and password `password`.
 
 ### Posts and Category from Active Admin
 
 Generate the resources for Active Admin to manage Categories and Posts from Active Admin:
 ```
-rails generate active_admin:resource Category
-rails generate active_admin:resource Post
+> rails generate active_admin:resource Category
+> rails generate active_admin:resource Post
 ```
 Rails will create all the necessary routes to manage posts and categories
 
@@ -714,8 +710,52 @@ end
 
 Go to `http://localhost:3000/admin/dashboard` and access your new dashboard
 
+---
+# SECTION 5 - Layout, Presentation and Testing
+---
+
+## Static Pages
+
+Generate a 'pages' controller with a 'about', 'contact' and resources view
+```
+> rails g controller pages about, contact resources
+    create  app/controllers/pages_controller.rb
+     route  get 'pages/resources'
+     route  get 'pages/contact'
+     route  get 'pages/about,'
+    invoke  erb
+    create    app/views/pages
+    create    app/views/pages/about,.html.erb
+    create    app/views/pages/contact.html.erb
+    create    app/views/pages/resources.html.erb
+    invoke  test_unit
+    create    test/controllers/pages_controller_test.rb
+    invoke  helper
+    create    app/helpers/pages_helper.rb
+    invoke    test_unit
+    invoke  assets
+    invoke    coffee
+    create      app/assets/javascripts/pages.coffee
+    invoke    scss
+    create      app/assets/stylesheets/pages.scss
+```
+
+On routes.rb, adjust the static page route to the corresponding view if you want to change the default routes from:
+```ruby
+  get 'pages/about'
+  get 'pages/contact'
+  get 'pages/resources'
+```
+To the new routes:
+```ruby
+  get 'about' => 'pages#about'
+  get 'contact' => 'pages#contact'
+  get 'resources' => 'pages#resources'
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
 2. [RoR Associations](http://guides.rubyonrails.org/association_basics.html)
 3. [RoR Active Admin](https://activeadmin.info/documentation.html)
+4. [RoR Layouts and Rendering](http://guides.rubyonrails.org/layouts_and_rendering.html#structuring-layouts)
