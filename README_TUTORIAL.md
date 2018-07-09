@@ -522,7 +522,7 @@ Update the show.html.erb with a link to delete the post
 
 ## Scaffolding in Rails
 
-Scaffolding in rails will basically create everything related to a model: the controller, the model, the view, the database migration, the unit tests, the styles, and helpers.
+Scaffolding in rails will basically create everything related to a model: the controller, the model, the view, the database migration, the unit tests, the styles and helpers.
 
 ```
 rails g scaffold category name:string
@@ -570,7 +570,6 @@ rails g scaffold category name:string
 
 Add  activeadmin and devise gem to Gemfile and save: `gem 'activeadmin' gem 'devise'`
 Run the following commands:
-
 ```
 bundle install
 rails generate active_admin:install
@@ -626,7 +625,6 @@ rails generate active_admin:install
 ```
 
 The previous commands will generate some migration files. So next run db migrate to create the new admin tables:
-
 ```
 rake db:migrate
 
@@ -673,6 +671,48 @@ Rails will create all the necessary routes to manage posts and categories
 http://localhost:3000/admin/categories
 http://localhost:3000/admin/posts
 ```
+
+### Allow Active Admin resource edition with permit params
+
+Go to app -> admin -> categories.rb and edit:
+```ruby
+ActiveAdmin.register Post do
+  menu :label => "Blog Posts"
+end
+```
+
+### Create Active Admin dashboard
+
+Go to app -> admin -> dashboard.rb and edit:
+```ruby
+ActiveAdmin.register_page "Dashboard" do
+  content do
+    section "Categories" do
+      table_for Category.order("id desc").limit(15) do
+        column :id
+        column "Category Name",:name do |category|
+          link_to category.name, [:admin,category]
+        end
+        column :created_at
+      end
+      strong {link_to "Show all Categories", :admin_categories}
+    end
+    section "Recent Posts" do
+      table_for Post.order("id desc").limit(15) do
+        column :id
+        column "Post Title",:title do |post|
+          link_to post.title, [:admin,post]
+        end
+        column :category,:sortable => :category
+        column :created_at
+      end
+      strong {link_to "Show all Posts", :admin_posts}
+    end
+  end
+end
+```
+
+Go to `http://localhost:3000/admin/dashboard` and access your new dashboard
 
 # References
 
