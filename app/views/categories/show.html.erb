@@ -1,8 +1,16 @@
-<h1><%= @category.name %></h1>
 <% if @posts.each do |post| %>
-  <h3><%= link_to post.title,post %></h3>
-  <p><%= post.body %></p>
+  <div class="post">
+    <h2 class="title"><%= link_to post.title,post %></h2>
+    <div class="entry"><%= post.body %></div>
+    <div class="byline">
+      <p class="meta">July 09, 2018 Posted by
+        <a href="#">Someone</a>
+      </p>
+      <p class="links">
+        <a href="post.html">Read More</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" title="b0x w">Comments</a>
+      </p>
+    </div>
+  </div>
 <% end.empty? %>
-  <p> Sorry, there are no posts in this category</p>
+  <p style="color:#ffffff;">Sorry, there are no posts in this category</p>
 <% end %>
-<%= link_to "Back to Categories",categories_path %>
