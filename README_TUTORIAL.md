@@ -902,6 +902,48 @@ Update `index.html.erb` view (in `app/views/posts`) with association links:
 <% end %>
 ```
 
+## References to existing Models
+
+Creation of comments model that will have a reference to Posts (using scaffolding):
+```
+> rails g scaffold comment name:string email:string body:text post:references
+
+      invoke  active_record
+      create    db/migrate/20180709223644_create_comments.rb
+      create    app/models/comment.rb
+      invoke    test_unit
+      create      test/models/comment_test.rb
+      create      test/fixtures/comments.yml
+      invoke  resource_route
+       route    resources :comments
+      invoke  inherited_resources_controller
+      create    app/controllers/comments_controller.rb
+      invoke    erb
+      create      app/views/comments
+      create      app/views/comments/index.html.erb
+      create      app/views/comments/edit.html.erb
+      create      app/views/comments/show.html.erb
+      create      app/views/comments/new.html.erb
+      create      app/views/comments/_form.html.erb
+      invoke    test_unit
+      create      test/controllers/comments_controller_test.rb
+      invoke    helper
+      create      app/helpers/comments_helper.rb
+      invoke      test_unit
+      invoke    jbuilder
+      create      app/views/comments/index.json.jbuilder
+      create      app/views/comments/show.json.jbuilder
+      create      app/views/comments/_comment.json.jbuilder
+      invoke  test_unit
+      create    test/system/comments_test.rb
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/comments.coffee
+      invoke    scss
+      create      app/assets/stylesheets/comments.scss
+      invoke  scss
+      create    app/assets/stylesheets/scaffolds.scss
+```
 
 # References
 
