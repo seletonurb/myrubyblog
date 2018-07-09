@@ -9,6 +9,15 @@
   </head>
 
   <body>
+    <div>
+      <ul>
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Blog", posts_path %></li>
+        <li><%= link_to "Contact", contact_path %></li>
+        <li><%= link_to "Resources", resources_path %></li>
+      </ul>
+    </div>
     <% flash.each do |key,value| %>
     <p><%= value %></p>
     <% end %>
