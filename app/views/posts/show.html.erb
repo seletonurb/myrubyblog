@@ -1,5 +1,5 @@
 <h1><%= @post.title %></h1>
 <small><%= @post.created_at.strftime("%b %d. %Y") %></small>
 <p><%= @post.body %></p>
-<p>Category: <%= @post.category.name %></p>
+<p>Category: <%= link_to @post.category.name,category_path(:id => @post.category.id) %></p>
 <p><%= link_to "Back",posts_path %></p>
