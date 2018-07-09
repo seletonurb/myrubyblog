@@ -564,7 +564,104 @@ rails g scaffold category name:string
     create    app/assets/stylesheets/scaffolds.scss
 ```
 
+## Active Admin
+
+### Install gem
+
+Add  activeadmin and devise gem to Gemfile and save: `gem 'activeadmin' gem 'devise'`
+Run the following commands:
+
+```
+bundle install
+rails generate active_admin:install
+
+      invoke  devise
+      generate    devise:install
+      create    config/initializers/devise.rb
+      create    config/locales/devise.en.yml
+      ==============================================================================
+      =
+
+      Some setup you must do manually if you haven't yet:
+
+      1. Ensure you have defined default url options in your environments files. Here is an example of default_url_options appropriate for a development environm ent in config/environments/development.rb:
+
+       config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+      In production, :host should be set to the actual host of your application.
+
+      2. Ensure you have defined root_url to *something* in your config/routes.rb. For example:
+       root to: "home#index"
+
+      3. Ensure you have flash messages in app/views/layouts/application.html.erb. For example:
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+      4. You can copy Devise views (for customization) to your app by running:
+
+       rails g devise:views
+
+      ===============================================================================
+      invoke    active_record
+      create      db/migrate/20180709131843_devise_create_admin_users.rb
+      create      app/models/admin_user.rb
+      invoke      test_unit
+      create        test/models/admin_user_test.rb
+      create        test/fixtures/admin_users.yml
+      insert      app/models/admin_user.rb
+       route    devise_for :admin_users
+        gsub    app/models/admin_user.rb
+        gsub    config/routes.rb
+      append    db/seeds.rb
+      create  config/initializers/active_admin.rb
+      create  app/admin
+      create  app/admin/dashboard.rb
+      create  app/admin/admin_users.rb
+      insert  config/routes.rb
+      generate  active_admin:assets
+      create  app/assets/javascripts/active_admin.js.coffee
+      create  app/assets/stylesheets/active_admin.scss
+      create  db/migrate/20180709131853_create_active_admin_comments.rb
+```
+
+The previous commands will generate some migration files. So next run db migrate to create the new admin tables:
+
+```
+rake db:migrate
+
+== 20180709131843 DeviseCreateAdminUsers: migrating ===========================
+-- create_table(:admin_users)
+   -> 0.0613s
+-- add_index(:admin_users, :email, {:unique=>true})
+   -> 0.0129s
+-- add_index(:admin_users, :reset_password_token, {:unique=>true})
+   -> 0.0074s
+== 20180709131843 DeviseCreateAdminUsers: migrated (0.0832s) ==================
+
+== 20180709131853 CreateActiveAdminComments: migrating ========================
+-- create_table(:active_admin_comments)
+   -> 0.0301s
+-- add_index(:active_admin_comments, [:namespace])
+   -> 0.0058s
+== 20180709131853 CreateActiveAdminComments: migrated (0.0367s) ===============
+```
+
+Then run db seed to add initial data after a database is created:
+```
+rake db:seed
+```
+
+### Run server and access Active Admin area
+
+Start server and go to `http://localhost:3000/admin/login`. Enter the default user and password:
+```
+admin@example.com
+password
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
 2. [RoR Associations](http://guides.rubyonrails.org/association_basics.html)
+3. [RoR Active Admin](https://activeadmin.info/documentation.html)

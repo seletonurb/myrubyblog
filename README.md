@@ -1,4 +1,4 @@
-# Ruby on Rails from Scratch 
+# Ruby on Rails from Scratch
 
 Project based on the Learn Ruby On Rails From Scratch from Udemy.
 
@@ -15,6 +15,7 @@ Rails version -> 5.1.4
 ## System dependencies
 
 Postgres
+Active Admin
 
 ## Configuration
 
