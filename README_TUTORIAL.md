@@ -660,6 +660,20 @@ admin@example.com
 password
 ```
 
+### Posts and Category from Active Admin
+
+Generate the resources for Active Admin to manage Categories and Posts from Active Admin:
+```
+rails generate active_admin:resource Category
+rails generate active_admin:resource Post
+```
+Rails will create all the necessary routes to manage posts and categories
+
+```
+http://localhost:3000/admin/categories
+http://localhost:3000/admin/posts
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
