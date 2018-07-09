@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   end
   def show
     @post = Post.find(params[:id])
+    @users = AdminUser.all
   end
   def destroy
     @post = Post.find(params[:id])

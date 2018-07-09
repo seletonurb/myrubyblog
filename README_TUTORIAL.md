@@ -801,7 +801,7 @@ def site_search
 end
 ```
 
-## Associate Blog Post to a Username
+## Associate Blog Post to Admin User
 
 ### Add name column to existing user admin table
 
@@ -845,7 +845,7 @@ ActiveAdmin.register AdminUser do
 end
 ```
 
-### Association between Posts and Admin Users
+### Update Posts and Admin Users Models
 
 A user can have many Posts, so the Post model has also to be updated:
 ```ruby
@@ -882,6 +882,26 @@ ActiveAdmin.register Post do
   end
 end
 ```
+
+### Update Posts Views
+
+Update `index.html.erb` view (in `app/views/posts`) with association links:
+
+```html
+<% @posts.each do |post| %>
+  <div class="post">
+    <h2 class="title"><%= link_to post.title,post %></h2>
+    <div class="entry"><%= post.body %></div>
+    <div class="byline">
+      <p class="meta">July 09, 2018 Posted by <%= post.admin_user.name%></p>
+      <p class="links">
+        <%= link_to "Read More",post %>
+      </p>
+    </div>
+  </div>
+<% end %>
+```
+
 
 # References
 
