@@ -845,6 +845,43 @@ ActiveAdmin.register AdminUser do
 end
 ```
 
+### Association between Posts and Admin Users
+
+A user can have many Posts, so the Post model has also to be updated:
+```ruby
+class AdminUser < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :trackable, :validatable
+  has_many :posts
+end
+```
+
+A user can have many Posts, so the Post model has also to be updated:
+```ruby
+class Post < ApplicationRecord
+  belongs_to :category
+  belongs_to :admin_user
+end
+```
+
+The Posts model in Active Admin has also to be changed to point to the admin_user id (the user that authorized to create posts).
+*It is important to mention that we have to change post column from author_id to admin_user_id (this can be achieved by manually seeting the column name in the pgAdmin tool)*
+
+```ruby
+ActiveAdmin.register Post do
+  menu :label => "Blog Posts"
+  permit_params :title, :body, :category_id, :admin_user_id
+  index do
+    column :title
+    column "Author",:admin_user_id
+    column :category_id
+    column :created_at
+    actions
+  end
+end
+```
 
 # References
 
