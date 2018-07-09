@@ -755,9 +755,17 @@ To the new routes:
 
 ## Integrating and Rendering HTML and CSS
 
-1. Add all the applicatoin style : create `application.css` file in `app/assets/stylesheets`
+1. Add all the application style : create `application.css` file in `app/assets/stylesheets`
 2. Update root application file with new html: update `application.html.erb` file in `app/views/layouts`
 3. Update all existing views files that are being referenced by the root file: update `html.erb` files in `app/views/home`, `app/views/pages` and `app/views/posts`
+
+### Adding partials
+1. Create partials folder in `app/views`
+2. Add the html content in the partials file (starts with underscore) : create `_sidebar.html.erb` file in `app/views/partials`
+3. Render partials content inside html file by calling render function (in `application.html.erb` file):
+```ruby
+  <%= render "partials/sidebar" %>
+```
 
 
 # References

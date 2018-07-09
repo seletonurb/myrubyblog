@@ -22,25 +22,17 @@
 		<li>
 			<h2>Categories</h2>
 			<ul>
-				<li><%= link_to "Category 1" %></li>
-				<li><%= link_to "Category 2" %></li>
-				<li><%= link_to "Category 3" %></li>
-				<li><%= link_to "Category 4" %></li>
-				<li><%= link_to "Category 5" %></li>
-				<li><%= link_to "Category 6" %></li>
+				<% all_categories.each do |cat| %>
+					<li><%= link_to cat.name,category_path(:id => cat.id) %></li>
+				<% end %>
 			</ul>
 		</li>
 		<li>
 			<h2>Blog Posts</h2>
 			<ul>
-				<li><%= link_to "Post 1" %></li>
-				<li><%= link_to "Post 2" %></li>
-				<li><%= link_to "Post 3" %></li>
-				<li><%= link_to "Post 4" %></li>
-				<li><%= link_to "Post 5" %></li>
-				<li><%= link_to "Post 6" %></li>
-				<li><%= link_to "Post 7" %></li>
-				<li><%= link_to "Post 8" %></li>
+				<% all_posts.each do |post| %>
+					<li><%= link_to post.title,post_path(:id => post.id) %></li>
+				<% end %>
 			</ul>
 		</li>
 	</ul>
