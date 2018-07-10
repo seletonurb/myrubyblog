@@ -902,8 +902,11 @@ Update `index.html.erb` view (in `app/views/posts`) with association links:
 <% end %>
 ```
 
-## References to existing Models
+## Creating references to existing Models : comments in posts example
 
+We can create references to an existing model by using the fact that a Post can have multiple Comments from users as an example.
+
+### Scaffold comments
 Creation of comments model that will have a reference to Posts (using scaffolding):
 ```
 > rails g scaffold comment name:string email:string body:text post:references
@@ -943,6 +946,105 @@ Creation of comments model that will have a reference to Posts (using scaffoldin
       create      app/assets/stylesheets/comments.scss
       invoke  scss
       create    app/assets/stylesheets/scaffolds.scss
+```
+
+### Update Models : cascade on destroy
+
+When we delete a post, there is a way to tell the application to destroy all the dependent resources (the comments) in the same operation. In `app/models/post.rb`:
+```ruby
+class Post < ApplicationRecord
+  belongs_to :category, optional: true
+  belongs_to :admin_user
+  has_many :comments, :dependent => :destroy
+end
+```
+
+### Update Models : check on mandatory fields and data validation
+
+When we create a comment, there is a way to to check the validity of its fields. In `app/models/comment.rb`:
+```ruby
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates_presence_of :name
+  validates_length_of :name, :within => 2..20
+  validates_presence_of :body
+end
+```
+
+### Update Controllers
+
+In `app/controllers/comments_controller.rb`:
+
+```ruby
+class CommentsController < InheritedResources::Base
+  def comment_params
+    params.require(:comment).permit(:name, :email, :body, :post_id)
+  end
+  def create
+    @comment = Comment.new(comment_params)
+
+    if @comment.save
+      ;flash[:notice] = 'Comment was successfully created.'
+      redirect_to(@comment.post)
+		else
+      flash[:notice] = "Error creating post comment: #{@comment.errors}"
+      redirect_to(@comment.post)
+		end
+  end
+end
+```
+
+In `app/controllers/posts_controller.rb`:
+
+```ruby
+def show
+  @post = Post.find(params[:id])
+  @users = AdminUser.all
+  @post_comment = Comment.new(:post => @post)
+end
+```
+
+### Update Views
+
+In `app/views/posts/show.html.erb`:
+
+```html
+<h1><%= @post.title %></h1>
+<small><%= @post.created_at.strftime("%b %d. %Y") %></small>
+<p>Created by <%= @post.admin_user.name %></p>
+<p><%= @post.body %></p>
+<p>Category: <%= link_to @post.category.name,category_path(:id => @post.category.id) %></p>
+<p><%= link_to "Back",posts_path %></p>
+<hr/>
+<h3>Add A Comment</h3>
+<%= form_for @post_comment do|f| %>
+  <%= f.hidden_field :post_id %>
+  <p>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :email %><br/>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :body %><br/>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Post Comment" %>
+  </p>
+<% end %>
+<%= render :partial => 'partials/post_comment', :collection => @post.comments %>
+```
+
+In `app/views/partials/_post_comment.html.erb`:
+```html
+<div class="post_comment">
+  <i><%=h post_comment.name %> says:</i><br />
+  <%= simple_format h(post_comment.body) %>
+</div>
 ```
 
 # References

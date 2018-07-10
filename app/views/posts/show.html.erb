@@ -4,3 +4,24 @@
 <p><%= @post.body %></p>
 <p>Category: <%= link_to @post.category.name,category_path(:id => @post.category.id) %></p>
 <p><%= link_to "Back",posts_path %></p>
+<hr/>
+<h3>Add A Comment</h3>
+<%= form_for @post_comment do|f| %>
+  <%= f.hidden_field :post_id %>
+  <p>
+    <%= f.label :name %><br/>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :email %><br/>
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :body %><br/>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Post Comment" %>
+  </p>
+<% end %>
+<%= render :partial => 'partials/post_comment', :collection => @post.comments %>
