@@ -1092,9 +1092,31 @@ class PostTest < ActiveSupport::TestCase
 end
 ```
 
-To run a models unit test, type the following command in a terminal:
+To run a Post model unit test, type the following command in a terminal:
 ```
 > ruby –Itest test/models/post.rb
+```
+
+### Functional Tests
+
+Taking the Post model as an example, the corresponding functional test will be created in the `test/controllers` folder.
+
+Below there is an example testing the GET method for Posts:
+```ruby
+require 'test_helper'
+
+class PostsControllerTest < ActionDispatch::IntegrationTest
+  test "should get index" do
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:posts)
+  end
+end
+```
+
+To run a Post Controller functional test, type the following command in a terminal:
+```
+> ruby -Itest test/controllers/post_controller_test.rb
 ```
 
 # References
