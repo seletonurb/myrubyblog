@@ -1047,9 +1047,60 @@ In `app/views/partials/_post_comment.html.erb`:
 </div>
 ```
 
+---
+# SECTION 6 - Testing
+---
+
+## Running Tests
+
+Before running the tests, make sure the database is updated and then create a test database (a clone) using rake:
+```
+> rake db:migrate
+> rake db:load:tests
+```
+
+### Unit Tests
+
+When we create a model or a controller from command line, rails will create the corresponding test structure in the test folder.
+Taking the Post model as an example, the corresponding unit test will be created in the `test/models` folder.
+
+Below there are example testing two fields (title and body) of the Post model assuming it requires validation in its model definition:
+
+Post model (with validates):
+```ruby
+class Post < ApplicationRecord
+  belongs_to :category, optional: true
+  belongs_to :admin_user
+  has_many :comments, :dependent => :destroy
+  validates :title, :presence => true
+  validates_length :body, :minimum => 10
+end
+```
+
+Post Unit Test:
+```ruby
+require 'test_helper'
+class PostTest < ActiveSupport::TestCase
+  test "If Title is there and body is long enough" do
+    post = Post.new(:title => "Some Title", :body => "This is the post body")
+    assert post.valid?
+  end
+  test "If Body is long enough" do
+    post = Post.new(:title => "Some Title", :body => "This is the post body")
+    assert post.valid?
+  end
+end
+```
+
+To run a models unit test, type the following command in a terminal:
+```
+> ruby –Itest test/models/post.rb
+```
+
 # References
 
 1. [RoR routing](http://guides.rubyonrails.org/routing.html)
 2. [RoR Associations](http://guides.rubyonrails.org/association_basics.html)
 3. [RoR Active Admin](https://activeadmin.info/documentation.html)
 4. [RoR Layouts and Rendering](http://guides.rubyonrails.org/layouts_and_rendering.html#structuring-layouts)
+5. [RoR Testing](https://guides.rubyonrails.org/testing.html)
