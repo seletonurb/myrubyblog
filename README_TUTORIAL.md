@@ -1,8 +1,16 @@
 # RUBY ON RAILS Tutorial #
 
+##### Table of Contents  
+[SECTION 1 - Environment Set up and Deployment](#section-1)  
+[SECTION 2 - Controller Views and Routes](#section-2)
+[SECTION 3 - Working with Models and Databases](#section-3)
+[SECTION 4 - Scaffolding and Active Admin](#section-4)
+[SECTION 5 - Layout, Presentation and Testing](#section-5)
+[SECTION 6 - Testing](#section-6)
+
 ---
+<a name="section-1"></a>
 # SECTION 1 - Environment Set up and Deployment
----
 
 1) Create an app:
 
@@ -78,8 +86,8 @@ In Gemfile, add line: gem 'pg'
 ```
 
 ---
+<a name="section-2"></a>
 # SECTION 2 - Controller Views and Routes
----
 
 ## Generating Controllers and Views
 
@@ -222,8 +230,8 @@ On index.html.rb:
 ```
 
 ---
+<a name="section-3"></a>
 # SECTION 3 - Working with Models and Databases
----
 
 ## Database Models
 
@@ -517,8 +525,8 @@ Update the show.html.erb with a link to delete the post
 ```
 
 ---
+<a name="section-4"></a>
 # SECTION 4 - Scaffolding and Active Admin
----
 
 ## Scaffolding in Rails
 
@@ -711,8 +719,8 @@ end
 Go to `http://localhost:3000/admin/dashboard` and access your new dashboard
 
 ---
+<a name="section-5"></a>
 # SECTION 5 - Layout, Presentation and Testing
----
 
 ## Static Pages
 
@@ -1048,8 +1056,8 @@ In `app/views/partials/_post_comment.html.erb`:
 ```
 
 ---
+<a name="section-6"></a>
 # SECTION 6 - Testing
----
 
 ## Running Tests
 
