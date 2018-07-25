@@ -1,12 +1,12 @@
 # RUBY ON RAILS Tutorial #
 
 ##### Table of Contents  
-[SECTION 1 - Environment Set up and Deployment](#section-1)  
-[SECTION 2 - Controller Views and Routes](#section-2)
-[SECTION 3 - Working with Models and Databases](#section-3)
-[SECTION 4 - Scaffolding and Active Admin](#section-4)
-[SECTION 5 - Layout, Presentation and Testing](#section-5)
-[SECTION 6 - Testing](#section-6)
+- [SECTION 1 - Environment Set up and Deployment](#section-1)  
+- [SECTION 2 - Controller Views and Routes](#section-2)
+- [SECTION 3 - Working with Models and Databases](#section-3)
+- [SECTION 4 - Scaffolding and Active Admin](#section-4)
+- [SECTION 5 - Layout, Presentation and Testing](#section-5)
+- [SECTION 6 - Testing](#section-6)
 
 ---
 <a name="section-1"></a>
