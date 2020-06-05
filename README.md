@@ -16,6 +16,7 @@ Rails version -> 5.1.4
 
 Postgres
 Active Admin
+Ruby installed: https://rubyinstaller.org/downloads/
 
 ## Configuration
 
